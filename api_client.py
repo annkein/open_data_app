@@ -1,24 +1,35 @@
 from dotenv import load_dotenv
 import os
 import requests
+import pandas
 
 # Load the variables from .env -file
 load_dotenv()
-api_key = os.getenv("API_KEY")
+API_KEY = os.getenv("API_KEY")
 
 # Only one dataset is in use
 DATASET_ID = 124
 BASE_URL = "https://data.fingrid.fi/api/datasets"
 
-def fetch_data():
+def fetch_data(start_time: str, end_time: str):
     """
     Fetch data from Fingrid Open Data API.
-    """
-    # API-request
-    url = f"{BASE_URL}/{DATASET_ID}/data?startTime=2026-02-09T00:00:00Z&endTime=2026-02-09T01:00:00Z&format=json"
-    headers = {"x-api-key": api_key}
 
-    response = requests.get(url, headers=headers)
+    Parameters:
+        start_time (str): Start time in ISO 8601 format, e.g. "2026-02-09T00:00:00Z"
+        end_time (str): End time in ISO 8601 format
+    """
+
+    # Set the url, headers, and parameters for the API request
+    url = f"{BASE_URL}/{DATASET_ID}/data"
+    headers = {"x-api-key": API_KEY}
+    params = {
+        "startTime": start_time,
+        "endTime": end_time,
+        "format": "json"
+    }
+
+    response = requests.get(url, headers=headers, params=params)
 
     # Check for errors in response
     if response.status_code != 200:
@@ -26,4 +37,9 @@ def fetch_data():
     
     data = response.json()
 
-    print(data)
+    # Convert data into DataFrame
+    df = pandas.DataFrame(data["data"])
+    df['startTime'] = pandas.to_datetime(df['startTime'])
+    df['endTime'] = pandas.to_datetime(df['endTime'])
+
+    return df
