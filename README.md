@@ -11,8 +11,8 @@ The Fingrid Open Data page has [more detailed API instructions](https://data.fin
 1. Go to the Fingrid Open Data Portal: [https://data.fingrid.fi/](https://data.fingrid.fi/)
 2. Create an account or log in with an existing account.
 3. Go to Developer portal via the **Control panel**.
-4. Sign in to the developer portal
-5. Go to **Products** where you can subscribe to the API
+4. Sign in to the developer portal.
+5. Go to **Products** where you can subscribe to the API.
 6. Choose Open Data starter, write a name for subscription and then press the Subscribe button.
 
 ## How to configure the API key
@@ -34,12 +34,13 @@ Then:
 2. After this, the program will ask for a start and end date: `Enter start date (YYYY-MM-DD):`, `Enter end date (YYYY-MM-DD):`
 
 #### Example run and output
-`python main.py`
-Enter start date (YYY-MM-DD): `2026-01-01`
-Enter end date (YYYY-MM-DD): `2026-01-31`
-
-Expected output (with the visual graph that pops up as separate window):
-
+```
+python main.py
+Enter start date (YYY-MM-DD): 2026-01-01
+Enter end date (YYYY-MM-DD): 2026-01-31
+```
+*Expected output (with the visual graph that pops up as separate window):*
+```
 Data preview (first 10 rows):
                 startTime                   endTime  Electricity consumption (MW)
 2026-01-01 00:00:00+00:00 2026-01-01 00:15:00+00:00                       12173.6
@@ -60,5 +61,4 @@ Summary statistics:
 Average consumption: 12891.3 MW
 Minimum consumption: 9886.2 MW
 Maximum consumption: 15553.1 MW
-
-
+```
