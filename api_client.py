@@ -13,11 +13,16 @@ BASE_URL = "https://data.fingrid.fi/api/datasets"
 
 def fetch_data(start_time: str, end_time: str) -> pd.DataFrame:
     """
-    Fetch data from Fingrid Open Data API.
+    Fetch electricity consumption data from Fingrid Open Data
+    API's dataset 124 (Finnish electricity consumption in MW) 
+    for a user-specified time range. The data is returned as a 
+    cleaned and sorted pandas DataFrame, with start and 
+    end timestamps converted to datetime objects and values rounded.
 
-    Parameters:
-        start_time (str): Start time in ISO 8601 format, e.g. "2026-02-09T00:00:00Z"
-        end_time (str): End time in ISO 8601 format
+    :param (str) start_time: Start time in ISO 8601 format, e.g. "2026-02-09T00:00:00Z"
+    :param (str) end_time: End time in ISO 8601 format, e.g. "2026-02-09T00:00:00Z"
+
+    :return: pd.DataFrame, with columns startTime, endTime and Electricity Consumption (MW).
     """
 
     if not API_KEY:
