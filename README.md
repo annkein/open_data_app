@@ -25,8 +25,8 @@ The application reads the API key from a `.env` file.
 Prerequisites are: Python 3.8 or newer and Git.
 Then:
 1. Clone the repository
-2. Create a virtual environment: `python -m venv venv`
-3. Activate the virtual environment: `source venv/Scripts/activate`
+2. Create a virtual environment: e.g. `python -m venv venv`
+3. Activate the virtual environment: e.g. `.\venv\Scripts\Activate.ps1` (Windows (PowerShell), VSCode)
 4. Install required dependencies: `pip install -r requirements.txt`
 
 ### Running
