@@ -29,7 +29,8 @@ def fetch_data(start_time: str, end_time: str) -> pd.DataFrame:
     params = {
         "startTime": start_time,
         "endTime": end_time,
-        "format": "json"
+        "format": "json",
+        "pageSize": 5000    # For getting larger time frames in the data
     }
 
     try:
@@ -47,7 +48,21 @@ def fetch_data(start_time: str, end_time: str) -> pd.DataFrame:
 
     # Convert data into DataFrame
     df = pd.DataFrame(json_data["data"])
-    df['startTime'] = pd.to_datetime(df['startTime'])
-    df['endTime'] = pd.to_datetime(df['endTime'])
+
+    # Convert times
+    df["startTime"] = pd.to_datetime(df["startTime"])
+    df["endTime"] = pd.to_datetime(df["endTime"])
+
+    # Rename value column to make clearer
+    df = df.rename(columns={
+        "value": "Electricity consumption (MW)"
+    })
+
+    # Sort by time and keep relevant columns
+    df = df.sort_values("startTime").reset_index(drop=True)
+    df = df[["startTime", "endTime", "Electricity consumption (MW)"]]
+
+    # Round values for nicer output
+    df["Electricity consumption (MW)"] = df["Electricity consumption (MW)"].round(1)
 
     return df
